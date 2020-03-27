@@ -15,7 +15,7 @@
 - remove background of image: https://www.youtube.com/watch?v=aNIHO3eNcqw
 - making round corners of rectangle in inkscape to make a rounded corner button: https://superuser.com/questions/640954/inkscape-rounding-corners-of-shapes
 - remove background to make png image: www.remove.bg
-- load a scene after a delay: https://www.youtube.com/watch?v=Oe9BZVnoedE
+- load a scene after another after a certain delay: https://www.youtube.com/watch?v=Oe9BZVnoedE
 - building project/producing apk for mobile: https://www.youtube.com/watch?time_continue=151&v=Ska81xpB-Po&feature=emb_logo
 - how to set up version control for Unity projects: https://www.youtube.com/watch?time_continue=300&v=TbdWXbRlPo0&feature=emb_logo
 

@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 7466462839875560811}
   - component: {fileID: 7466462839875560808}
   - component: {fileID: 7466462839875560809}
+  - component: {fileID: 8666717136618291146}
   m_Layer: 5
   m_Name: btnSettings
   m_TagString: Untagged
@@ -117,3 +118,17 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls: []
+--- !u!114 &8666717136618291146
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7466462839875560807}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 225ac6f65e148cc45bf4f85382046e3b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  HelpPanel: {fileID: 1506493408618303698, guid: 232a3e0ef743f3446b0f86ad05ea2250,
+    type: 3}

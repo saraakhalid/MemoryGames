@@ -8,4 +8,7 @@ public class Redirection : MonoBehaviour
     {
         Application.LoadLevel(sceneName);
     }
+    public void QuitGame(){
+        Application.Quit();
+    }
 }

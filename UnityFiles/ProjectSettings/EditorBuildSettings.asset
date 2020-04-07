@@ -12,24 +12,24 @@ EditorBuildSettings:
     path: Assets/Scenes/Choose Level.unity
     guid: 6b09d915dd7094144ae3002ef3b0f485
   - enabled: 1
-    path: Assets/Scenes/Login Screen.unity
-    guid: 2cb9b07f1b12c6f45bbdea4ad58da122
-  - enabled: 1
     path: Assets/Scenes/Easy Level Start.unity
     guid: 57562dd2d2ffb3b43a998721aacb4442
-  - enabled: 1
-    path: Assets/Scenes/Medium Level Start.unity
-    guid: 390a826e07890ed42b6e0361ea434ed3
-  - enabled: 1
-    path: Assets/Scenes/Hard Level Start.unity
-    guid: 5e57657bf42c4aa4ab086b90c17a112d
   - enabled: 1
     path: Assets/Scenes/Easy Level R1.unity
     guid: d8045082b38b0da469917804d43ee869
   - enabled: 1
-    path: Assets/Scenes/Hard Level R1.unity
-    guid: 109a81c537fb6094cb0ef15f8080e6f8
+    path: Assets/Scenes/Medium Level Start.unity
+    guid: 390a826e07890ed42b6e0361ea434ed3
   - enabled: 1
     path: Assets/Scenes/Medium Level R1.unity
     guid: 8c2769600c60e59418f41206cb0fc0b6
+  - enabled: 1
+    path: Assets/Scenes/Hard Level Start.unity
+    guid: 5e57657bf42c4aa4ab086b90c17a112d
+  - enabled: 1
+    path: Assets/Scenes/Hard Level R1.unity
+    guid: 109a81c537fb6094cb0ef15f8080e6f8
+  - enabled: 1
+    path: Assets/Scenes/Congrats Scene.unity
+    guid: 25aa2cef873b2574d9f379dc0dbb9fbd
   m_configObjects: {}

@@ -28,6 +28,11 @@
     Since my local branch is called `master` and the remote branch I want to push to is called `Sarah`, they will not match, so Git will automatically go looking for a branch called `master` in the remote repo, and it will push to it. To change this behaviour, we used this command, which basically changed the default setting for the `push` command. Now the `push` will by default push to the upstream that I have set, not to the branch with the same name as my local.
     ref: https://stackoverflow.com/questions/8170558/git-push-set-target-for-branch
 - how to use Visual Studio Code with Unity: https://www.youtube.com/watch?v=_v9mc3dcwYE
+- `gitignore` template for Unity projects with VSCode: https://gist.github.com/omid3098/eec7c81c6bebbdaef4185016287bc156
+- adding audio and audio controls - first min or so of https://www.youtube.com/watch?v=vOaQp2x-io0 and first 4 mins of https://www.youtube.com/watch?v=YOaYQrN1oYQ
+- used [OrangeFreeSounds](http://www.orangefreesounds.com/) for sounds
+- create toggle group to allow only one toggle to be selected: https://www.youtube.com/watch?v=ONuGQj-IA6M
+- play audio from script C#: https://docs.unity3d.com/ScriptReference/AudioSource.Play.html
 ### Unity Tips and Tricks
 
 - click 'W' on keyboard to move a game object

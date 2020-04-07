@@ -14,5 +14,4 @@ public class MovingBetweenRounds : MonoBehaviour
         //5. increment the round counter by one - indicating that we have finished a round
         //TODO: incrementation of round counter triggers changing audios between rounds, changing the title text of the screen and keeping the score showing as it is without resetting it. This can be done inside one function called GoNextRound()
     }
-    
 }

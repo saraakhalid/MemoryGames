@@ -6,13 +6,12 @@ using UnityEngine.UI;
 using System.Linq;
 public class SubmitButton : MonoBehaviour
 { 
-    int roundNumber = 1;
+    
+    public static int roundNumber = 1;
     string roundComponentsGroupName;
-
-    [SerializeField]
-    string level;
-    private int Score;
+    public UnityEngine.UI.ToggleGroup ToggleGroup;
     List<string> clickedAudios = new List<string>(); //what the user clicked/chose
+    private int Score;
     [SerializeField]
     private GameObject EndOfRound;
 
@@ -25,20 +24,20 @@ public class SubmitButton : MonoBehaviour
     private Image thumbsDown;
     [SerializeField]
     AudioSource winSound;
-    private GameObject RoundComponents; 
+    [SerializeField]
+    private GameObject[] RoundComponents;
 
-    public UnityEngine.UI.ToggleGroup ToggleGroup;
     void Awake(){
+
         Debug.Log("Good Morning"); //debug
         setLevelNumber();
-        if( ToggleGroup == null ) ToggleGroup = GetComponent<ToggleGroup>(); //make sure I have toggle group
         winSound = GetComponent<AudioSource>();
-        
-        roundComponentsGroupName = "Round1" + roundNumber;
-        RoundComponents = GameObject.Find(roundComponentsGroupName); //had to move initialisation from the same line, refer: https://answers.unity.com/questions/502420/error-a-field-initializer-cannot-reference-the-non.html
-    }
 
+        if( ToggleGroup == null ) ToggleGroup = GetComponent<ToggleGroup>(); //make sure I have toggle group
+    }
     int levelNumber;
+    [SerializeField]
+    string level;
     private void setLevelNumber(){
         if(level == "Easy")
         {levelNumber = 1;}
@@ -48,19 +47,6 @@ public class SubmitButton : MonoBehaviour
         {levelNumber = 3;}
 
         Debug.Log("level number is: " + levelNumber);
-    }
-    public void clickingToggle(){ //called every time a toggle is pressed
-        string selectedToggle = ToggleGroup.ActiveToggles().FirstOrDefault().name; //adding the name of the button user clicks on 
-        Debug.Log("logging the array: ");
-
-        if(levelNumber == 1){
-            clickedAudios.Clear(); //clear the array
-            clickedAudios.Add(selectedToggle);
-        }
-        //displaying clickedAudios
-        for(int i=0; i<clickedAudios.Count;i++){
-            Debug.Log(clickedAudios[i]);
-        }
     }
 
     int aims; //number of correct choices
@@ -84,7 +70,10 @@ public class SubmitButton : MonoBehaviour
         }
         
         //displaying win/lose screen
-        RoundComponents.SetActive(false);
+        foreach(var rnd in RoundComponents){
+            if (rnd.activeSelf)
+                rnd.SetActive(false);
+        }
         EndOfRound.SetActive(true);
 
         if(levelNumber == 1 && aims ==1)
@@ -119,5 +108,28 @@ public class SubmitButton : MonoBehaviour
         thumbsUp.enabled = false;
         thumbsDown.enabled = true;
         roundNumber++;
+    }
+
+    public void clickingToggle(){ //called every time a toggle is pressed
+        string selectedToggle = ToggleGroup.ActiveToggles().FirstOrDefault().name; //adding the name of the button user clicks on 
+        Debug.Log("logging the array: ");
+
+        if(levelNumber == 1){
+            clickedAudios.Clear(); //clear the array
+            clickedAudios.Add(selectedToggle);
+        }
+        //displaying clickedAudios
+        for(int i=0; i<clickedAudios.Count;i++){
+            Debug.Log(clickedAudios[i]);
+        }
+    }
+
+    public void goToNextRound(){
+        EndOfRound.SetActive(false);
+
+        if(roundNumber==2)
+        RoundComponents[1].SetActive(true); //activate the second round components
+        else if(roundNumber==3)
+        RoundComponents[2].SetActive(true);
     }
 }

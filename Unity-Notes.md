@@ -33,6 +33,11 @@
 - used [OrangeFreeSounds](http://www.orangefreesounds.com/) for sounds
 - create toggle group to allow only one toggle to be selected: https://www.youtube.com/watch?v=ONuGQj-IA6M
 - play audio from script C#: https://docs.unity3d.com/ScriptReference/AudioSource.Play.html
+- stop all audio by button click: https://answers.unity.com/questions/194110/how-to-stop-all-audio.html
+- find audioSources by tag: https://forum.unity.com/threads/find-all-gameobjects-in-a-scene-by-tag-and-access-the-audio-source-on-them.445374/
+- fix blurry font:
+    1. decrease scale (maybe make it x=0.5, y=0.5, z=0.5)
+    2. increase font size (maybe 40)
 ### Unity Tips and Tricks
 
 - click 'W' on keyboard to move a game object

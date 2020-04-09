@@ -6,10 +6,12 @@ using UnityEngine.UI;
 using System.Linq;
 public class SubmitButton : MonoBehaviour
 { 
-    
     public static int roundNumber = 1;
     string roundComponentsGroupName;
-    public UnityEngine.UI.ToggleGroup ToggleGroup;
+    // public ToggleGroup ToggleGroup;
+    [SerializeField]
+    public GameObject[] toggleGroup; //a toggle group of my creation
+
     List<string> clickedAudios = new List<string>(); //what the user clicked/chose
     private int Score;
     [SerializeField]
@@ -33,7 +35,16 @@ public class SubmitButton : MonoBehaviour
         setLevelNumber();
         winSound = GetComponent<AudioSource>();
 
-        if( ToggleGroup == null ) ToggleGroup = GetComponent<ToggleGroup>(); //make sure I have toggle group
+        //DontDestroyOnLoad(this);
+        // Destroy(ToggleGroup);
+        clickedAudios = new List<string>();
+
+        toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
+        
+    }
+    void Update(){
+        toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
+        //if( ToggleGroup == null ) ToggleGroup = GetComponent<ToggleGroup>(); //make sure I have toggle group
     }
     int levelNumber;
     [SerializeField]
@@ -51,10 +62,10 @@ public class SubmitButton : MonoBehaviour
 
     int aims; //number of correct choices
     int miss; //number of wrong choices
+
     public void clickingSubmit(){
         Debug.Log("Hello from inside Submit");
-        int i;
-        for(i=0; i<levelNumber; i++)
+        for(int i=0; i<levelNumber; i++)
         {
             if(clickedAudios[i].IndexOf('*') != -1) //if the char * exists in the name of a button, it is the correct choice button
             {
@@ -98,7 +109,7 @@ public class SubmitButton : MonoBehaviour
         txtEndOfRound.text = "You win this round! :)";
         thumbsUp.enabled = true;
         thumbsDown.enabled = false;
-        winSound.Play(0);
+        winSound.Play();
         Score = Score + 10;
         roundNumber++;
     }
@@ -110,15 +121,48 @@ public class SubmitButton : MonoBehaviour
         roundNumber++;
     }
 
-    public void clickingToggle(){ //called every time a toggle is pressed
-        string selectedToggle = ToggleGroup.ActiveToggles().FirstOrDefault().name; //adding the name of the button user clicks on 
-        Debug.Log("logging the array: ");
+    public void clickingToggle(){ //called every time a toggle is presseds
 
+        GameObject activeToggle = EventSystem.current.currentSelectedGameObject;
+        GameObject[] twoActiveToggles; //for Medium level
+        GameObject[] threeActiveToggles; //for Hard level
+
+        //1. activate only the clicked toggle and deactivate all other toggles in the screen
+        if(levelNumber == 1){
+        foreach(var tgl in toggleGroup)
+        {
+            if (tgl == activeToggle)
+            {
+                tgl.GetComponent<Toggle>().isOn = true;
+            }
+            else
+                tgl.GetComponent<Toggle>().isOn = false;
+        }
+        }
+        // else if(levelNumber == 2)
+        // {
+        //     activeToggles.Add(activeToggle);
+        // }
+
+        //2. get the name of the currently active toggle
+        string selectedToggle = activeToggle.name;
+
+        Debug.Log("active toggle: ");
+        print(selectedToggle);
+
+        //3. add it to an array of user answers for validation when submitting
         if(levelNumber == 1){
             clickedAudios.Clear(); //clear the array
-            clickedAudios.Add(selectedToggle);
+            clickedAudios.Add(selectedToggle); //add the name of the toggle to the array
         }
+        // else if(levelNumber == 2)
+        // {
+        //   //write code for what happens in level 2
+        // }
+
+        //debugging ....
         //displaying clickedAudios
+        print("displaying clicked audios: ");
         for(int i=0; i<clickedAudios.Count;i++){
             Debug.Log(clickedAudios[i]);
         }

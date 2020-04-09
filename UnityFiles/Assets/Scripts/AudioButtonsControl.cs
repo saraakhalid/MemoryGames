@@ -15,6 +15,10 @@ public class AudioButtonsControl : MonoBehaviour
     void Awake(){
         allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
     }
+    void Update()
+        {
+            allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
+        }
         public void clickingAudioButton(){
             //1. get name of the child of this button
             var childName = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).name;
@@ -50,5 +54,5 @@ public class AudioButtonsControl : MonoBehaviour
      foreach( AudioSource audioS in allAudioSources) {
          audioS.Stop();
          }
- }
-}
+    }
+    }

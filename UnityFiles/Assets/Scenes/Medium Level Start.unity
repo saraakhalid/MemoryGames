@@ -133,18 +133,6 @@ RectTransform:
     type: 3}
   m_PrefabInstance: {fileID: 1191284215912163779}
   m_PrefabAsset: {fileID: 0}
---- !u!114 &586877777 stripped
-MonoBehaviour:
-  m_CorrespondingSourceObject: {fileID: 8666717136618291146, guid: 031e5a01b973d6e429038aef277233d9,
-    type: 3}
-  m_PrefabInstance: {fileID: 7466462840422607153}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 0}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 225ac6f65e148cc45bf4f85382046e3b, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!224 &660917335 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 7466462839875560806, guid: 031e5a01b973d6e429038aef277233d9,
@@ -2193,7 +2181,7 @@ PrefabInstance:
     - target: {fileID: 7466462839875560809, guid: 031e5a01b973d6e429038aef277233d9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 1
+      value: 6
       objectReference: {fileID: 0}
     - target: {fileID: 7466462839875560809, guid: 031e5a01b973d6e429038aef277233d9,
         type: 3}
@@ -2204,16 +2192,21 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 586877777}
+      objectReference: {fileID: 1152418680}
     - target: {fileID: 7466462839875560809, guid: 031e5a01b973d6e429038aef277233d9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: OpenGameInformation
+      value: SetActive
       objectReference: {fileID: 0}
     - target: {fileID: 7466462839875560809, guid: 031e5a01b973d6e429038aef277233d9,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_ObjectArgumentAssemblyTypeName
       value: UnityEngine.Object, UnityEngine
+      objectReference: {fileID: 0}
+    - target: {fileID: 7466462839875560809, guid: 031e5a01b973d6e429038aef277233d9,
+        type: 3}
+      propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Arguments.m_BoolArgument
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8666717136618291146, guid: 031e5a01b973d6e429038aef277233d9,
         type: 3}

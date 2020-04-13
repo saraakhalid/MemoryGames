@@ -7,9 +7,15 @@ public class Redirection : MonoBehaviour
 {
     public void redirectToScreen(string sceneName)
     {
-        SceneManager.LoadScene(sceneName); //old: Application.LoadLevel(sceneName) but compiler said it's obsolete
+        if (SubmitButton.roundNumber == 4)
+        {
+            SceneManager.LoadScene(8); //build index of Congrats scene is 8
+        }
+        else
+            SceneManager.LoadScene(sceneName); //old: Application.LoadLevel(sceneName) but compiler said it's obsolete
     }
-    public void QuitGame(){
+    public void QuitGame()
+    {
         Application.Quit();
     }
 }

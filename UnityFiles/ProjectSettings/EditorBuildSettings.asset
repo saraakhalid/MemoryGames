@@ -32,4 +32,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/Congrats Scene.unity
     guid: 25aa2cef873b2574d9f379dc0dbb9fbd
+  - enabled: 1
+    path: Assets/Scenes/Register.unity
+    guid: 37d440f5dff4c474c9f7415a878e7b85
   m_configObjects: {}

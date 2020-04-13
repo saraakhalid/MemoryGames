@@ -32,7 +32,8 @@ public class Register : MonoBehaviour
         // }
     }
 
-    public void RegisterButton(){
+    public void RegisterButton()
+    {
 
         // private bool UsernameValid = false;
         // private bool PasswordValid = false;
@@ -41,64 +42,69 @@ public class Register : MonoBehaviour
         bool PasswordValid = false;
         bool ConfPasswordValid = false;
 
-        if (_Username != ""){
-            if(!System.IO.File.Exists(@"D:/GAMES/Puzzle Game/Usernames/"+_Username+".txt")){ //check if file with Username exists
+        if (_Username != "")
+        {
+            if (!System.IO.File.Exists(@"D:/GAMES/Puzzle Game/Usernames/" + _Username + ".txt"))
+            { //check if file with Username exists
                 UsernameValid = true; //it passed the tests, it is valid
-            }   
+            }
             else
             {
-                Debug.LogWarning("Username exists. Choose another."); 
+                Debug.LogWarning("Username exists. Choose another.");
             }
         }
-        else{
+        else
+        {
             Debug.LogWarning("Username is empty");
         }
 
-        if(_Password != ""){
-                if(_Password.Length > 16)
-                {
-                    Debug.LogWarning("password too long! Password must be less than 16 characters.");
-                }
-                else if(_Password.Length < 5)
-                {
-                    Debug.LogWarning("password too short! Password must be more than 4 characters.");
-                }
-                else
-                    PasswordValid = true;
+        if (_Password != "")
+        {
+            if (_Password.Length > 16)
+            {
+                Debug.LogWarning("password too long! Password must be less than 16 characters.");
+            }
+            else if (_Password.Length < 5)
+            {
+                Debug.LogWarning("password too short! Password must be more than 4 characters.");
+            }
+            else
+                PasswordValid = true;
         }
         else
             Debug.LogWarning("Dude, is the password field empty?");
-        
-        if(ConfPassword != "")
+
+        if (ConfPassword != "")
         {
             if (ConfPassword == _Password)
-                {
-                    ConfPasswordValid = true;
-                }
+            {
+                ConfPasswordValid = true;
+            }
             else
                 Debug.LogWarning("passwords do not match!");
         }
         else
             Debug.LogWarning("Confirm Password field is empty.");
-        
-        if(UsernameValid && PasswordValid && ConfPasswordValid)
+
+        if (UsernameValid && PasswordValid && ConfPasswordValid)
         {
             //1. encrypt the password
 
 
             //2. store the info
-            form = (_Username+"\n"+_Password);
-            System.IO.File.WriteAllText(@"D:/GAMES/Puzzle Game/Usernames/"+_Username+".txt", form); //form is the contents of the file
+            form = (_Username + "\n" + _Password);
+            System.IO.File.WriteAllText(@"D:/GAMES/Puzzle Game/Usernames/" + _Username + ".txt", form); //form is the contents of the file
             //3. clear all fields
             _Username = username.GetComponent<InputField>().text = "";
             _Password = password.GetComponent<InputField>().text = "";
             ConfPassword = confPassword.GetComponent<InputField>().text = "";
             //4. print message
-            print ("Registration complete!");
+            print("Registration complete!");
         }
     }
 
-    private void OnRegisterSuccess(RegisterPlayFabUserResult result){
+    private void OnRegisterSuccess(RegisterPlayFabUserResult result)
+    {
         Debug.Log("Registration successful!");
         string message = "Registration successful!";
         RegisterSuccessPanel.transform.GetChild(0).GetComponent<Text>().text = "You have successfully registered an account!";
@@ -108,20 +114,23 @@ public class Register : MonoBehaviour
         PlayerPrefs.SetString("USERNAME", _Username);
         PlayerPrefs.SetString("PASSWORD", _Password);
     }
-    private void OnRegisterFail(PlayFabError error){
+    private void OnRegisterFail(PlayFabError error)
+    {
         Debug.LogError(error.GenerateErrorReport());
     }
-    public void RegisterWithPlayFab(){
-        var registerRequest = new RegisterPlayFabUserRequest { Username = _Username, Password = _Password, RequireBothUsernameAndEmail=false};
+    public void RegisterWithPlayFab()
+    {
+        var registerRequest = new RegisterPlayFabUserRequest { Username = _Username, Password = _Password, RequireBothUsernameAndEmail = false };
         //note: Password must be 6 and 100 characters
-        PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest{
-            Username = _Username, 
-            Password = _Password, 
-            RequireBothUsernameAndEmail=false
-        }, (result) => 
+        PlayFabClientAPI.RegisterPlayFabUser(new RegisterPlayFabUserRequest
         {
-           OnRegisterSuccess(result);
-        }, (error) => 
+            Username = _Username,
+            Password = _Password,
+            RequireBothUsernameAndEmail = false
+        }, (result) =>
+        {
+            OnRegisterSuccess(result);
+        }, (error) =>
         {
             handleRegistrationErrors(error);
         });
@@ -134,25 +143,25 @@ public class Register : MonoBehaviour
         //1. get the error message - refer to https://community.playfab.com/questions/983/211976307-Error-codes-on-unity.html
         string message = string.Empty;
         switch (e.Error)
-	        {
-                case PlayFabErrorCode.InvalidParams:
-                    message = "Invalid Parameters. Please contact support!";
+        {
+            case PlayFabErrorCode.InvalidParams:
+                message = "Invalid Parameters. Please contact support!";
                 break;
-        
-                case PlayFabErrorCode.NotAuthenticated:
-                    message = "Player not authorized/authenticated";
-                    break;
-        
-                case PlayFabErrorCode.NameNotAvailable:
-                case PlayFabErrorCode.UsernameNotAvailable:
-                    message = "Username or Displayname is already taken/not available";
-                    break;
-        
-                default:
-                    Debug.LogError(e.Error);
-                    Debug.LogError(e.ErrorMessage);
-                    break;
-            }
+
+            case PlayFabErrorCode.NotAuthenticated:
+                message = "Player not authorized/authenticated";
+                break;
+
+            case PlayFabErrorCode.NameNotAvailable:
+            case PlayFabErrorCode.UsernameNotAvailable:
+                message = "Username or Displayname is already taken/not available";
+                break;
+
+            default:
+                Debug.LogError(e.Error);
+                Debug.LogError(e.ErrorMessage);
+                break;
+        }
         // //2. show error message on the screen
         GameObject errorText = errorPanel.transform.GetChild(0).gameObject;
         errorText.GetComponent<Text>().text = message;
@@ -161,26 +170,31 @@ public class Register : MonoBehaviour
     }
 
     IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
+    //source: https://forum.unity.com/threads/hide-object-after-time.291287/
     {
-            yield return new WaitForSeconds(seconds);
-            obj.SetActive(false);
+        yield return new WaitForSeconds(seconds);
+        obj.SetActive(false);
     }
 
     // Update is called once per frame
     void Update()
     {
         //for my debugging use - useless in mobile 
-        if(Input.GetKeyDown(KeyCode.Tab)){
-            if(username.GetComponent<InputField>().isFocused){
+        if (Input.GetKeyDown(KeyCode.Tab))
+        {
+            if (username.GetComponent<InputField>().isFocused)
+            {
                 password.GetComponent<InputField>().Select();
             }
-            if(password.GetComponent<InputField>().isFocused){
+            if (password.GetComponent<InputField>().isFocused)
+            {
                 confPassword.GetComponent<InputField>().Select();
             }
         }
-        if(Input.GetKeyDown(KeyCode.Return)){
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
             //if enter is clicked, validate that all fields are full
-            if(_Username != "" && _Password != "" && ConfPassword!="") //note: we can't use null in the below case, because even though it appears empty but it isn't null
+            if (_Username != "" && _Password != "" && ConfPassword != "") //note: we can't use null in the below case, because even though it appears empty but it isn't null
             {
                 RegisterButton();
             }
@@ -189,9 +203,9 @@ public class Register : MonoBehaviour
                 print("please fill up the fields first.");
             }
         }
-       _Username = username.GetComponent<InputField>().text;
-       _Password = password.GetComponent<InputField>().text;
-       ConfPassword = confPassword.GetComponent<InputField>().text;
+        _Username = username.GetComponent<InputField>().text;
+        _Password = password.GetComponent<InputField>().text;
+        ConfPassword = confPassword.GetComponent<InputField>().text;
     }
 }
 

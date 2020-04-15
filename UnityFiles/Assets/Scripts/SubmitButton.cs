@@ -6,6 +6,7 @@ using UnityEngine.UI;
 using System.Linq;
 public class SubmitButton : MonoBehaviour
 {
+    //todo: add time
     public static int roundNumber = 1;
     public static int Score;
     string roundComponentsGroupName;
@@ -39,8 +40,6 @@ public class SubmitButton : MonoBehaviour
         setLevelNumber();
         winSound = GetComponent<AudioSource>();
 
-        //DontDestroyOnLoad(this);
-        // Destroy(ToggleGroup);
         clickedAudios = new List<string>();
 
         toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton"); //probably does not work

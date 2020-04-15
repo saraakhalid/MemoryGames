@@ -9,17 +9,16 @@ public class AudioButtonsControl : MonoBehaviour
 {
     private AudioSource[] allAudioSources; //all audio sources in the scene 
     private AudioSource allAudioSourcesPlayingRightNow;
-    //List<AudioSource> allAudioSourcesPlayingRightNow;
     
 
     void Awake(){
         allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
     }
-    void Update()
-        {
+    void Update(){
             allAudioSources = FindObjectsOfType(typeof(AudioSource)) as AudioSource[];
-        }
-        public void clickingAudioButton(){
+    }
+        
+    public void clickingAudioButton(){
             //1. get name of the child of this button
             var childName = EventSystem.current.currentSelectedGameObject.transform.GetChild(0).name;
             Debug.Log("childName: ");
@@ -55,4 +54,4 @@ public class AudioButtonsControl : MonoBehaviour
          audioS.Stop();
          }
     }
-    }
+}

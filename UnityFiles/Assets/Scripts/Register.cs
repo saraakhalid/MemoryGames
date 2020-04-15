@@ -17,7 +17,7 @@ public class Register : MonoBehaviour
     [SerializeField]
     public GameObject errorPanel;
     [SerializeField]
-    public GameObject RegisterSuccessPanel;
+    public GameObject SuccessPanel;
     private string form; //holds all string variables
     //sStart is called before the first frame update
     void Start()
@@ -31,13 +31,8 @@ public class Register : MonoBehaviour
         //      PlayFabClientAPI.LoginWithPlayfab(??)
         // }
     }
-
     public void RegisterButton()
     {
-
-        // private bool UsernameValid = false;
-        // private bool PasswordValid = false;
-        // private bool ConfPasswordValid = false;
         bool UsernameValid = false;
         bool PasswordValid = false;
         bool ConfPasswordValid = false;
@@ -107,9 +102,9 @@ public class Register : MonoBehaviour
     {
         Debug.Log("Registration successful!");
         string message = "Registration successful!";
-        RegisterSuccessPanel.transform.GetChild(0).GetComponent<Text>().text = "You have successfully registered an account!";
-        RegisterSuccessPanel.SetActive(true);
-        StartCoroutine(RemoveAfterSeconds(3, RegisterSuccessPanel));
+        SuccessPanel.transform.GetChild(0).GetComponent<Text>().text = "You have successfully registered an account!";
+        SuccessPanel.SetActive(true);
+        StartCoroutine(RemoveAfterSeconds(3, SuccessPanel));
         //save username and password in user preferences so that user will be logged in next time
         PlayerPrefs.SetString("USERNAME", _Username);
         PlayerPrefs.SetString("PASSWORD", _Password);
@@ -169,7 +164,7 @@ public class Register : MonoBehaviour
         StartCoroutine(RemoveAfterSeconds(5, errorPanel));
     }
 
-    IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
+    static public IEnumerator RemoveAfterSeconds(int seconds, GameObject obj)
     //source: https://forum.unity.com/threads/hide-object-after-time.291287/
     {
         yield return new WaitForSeconds(seconds);

@@ -13,7 +13,7 @@ public class EndOfLevel : MonoBehaviour
     void Start()
     {
         //stars = GameObject.FindGameObjectsWithTag("star"); //does not work
-        Debug.Log(stars); //debugging
+
         totalScore.GetComponent<Text>().text = "Score: " + SubmitButton.Score.ToString();
         if (SubmitButton.Score == 0)
         {
@@ -22,21 +22,61 @@ public class EndOfLevel : MonoBehaviour
                 s.SetActive(false);
             }
         }
-        else if (SubmitButton.Score <= 10)
+        if(SubmitButton.levelNumber == 1)
         {
-            stars[0].SetActive(true);
-        }
-        else if (SubmitButton.Score > 10 && SubmitButton.Score <= 20)
+            if(SubmitButton.Score <= 5)
+            {
+                stars[1].SetActive(true);
+            }
+            else if (SubmitButton.Score > 5 && SubmitButton.Score <= 10)
         {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
         }
-        else if (SubmitButton.Score > 20 && SubmitButton.Score <= 30)
+        else if (SubmitButton.Score > 10 && SubmitButton.Score <= 15)
         {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
             stars[2].SetActive(true);
         }
+        }
+        else if(SubmitButton.levelNumber == 2)
+        {
+            if(SubmitButton.Score <= 10)
+            {
+            stars[1].SetActive(true);
+            }
+            else if(SubmitButton.Score > 10 && SubmitButton.Score <= 20)
+            {
+            stars[0].SetActive(true);
+            stars[1].SetActive(true);
+            }
+            else if(SubmitButton.Score > 20 && SubmitButton.Score <= 30)
+            {
+            stars[0].SetActive(true);
+            stars[1].SetActive(true);
+            stars[2].SetActive(true);
+            }
+        }
+        else{
+            if(SubmitButton.Score <= 20)
+            {
+            stars[1].SetActive(true);
+            }
+            else if(SubmitButton.Score > 20 && SubmitButton.Score <= 40)
+            {
+            stars[0].SetActive(true);
+            stars[1].SetActive(true);
+            }
+            else if(SubmitButton.Score > 40 && SubmitButton.Score <= 60)
+            {
+            stars[0].SetActive(true);
+            stars[1].SetActive(true);
+            stars[2].SetActive(true);                
+            }
+        }
+        
+        
     }
 
     // Update is called once per frame

@@ -8,6 +8,8 @@ TagManager:
   - sound
   - ToggleButton
   - star
+  - life
+  - evaluation
   layers:
   - Default
   - TransparentFX

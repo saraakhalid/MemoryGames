@@ -1,11 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
+using UnityEngine.EventSystems; 
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System.Collections.Generic;
-using System.Linq;
+using System; //for error catching
 
 public class SubmitButton : MonoBehaviour
 {
@@ -35,6 +35,7 @@ public class SubmitButton : MonoBehaviour
     AudioSource winSound;
     [SerializeField]
     private GameObject[] RoundComponents;
+
 
     void Awake()
     {
@@ -80,7 +81,12 @@ public class SubmitButton : MonoBehaviour
     public void clickingSubmit()
     {
         Debug.Log("Hello from inside Submit");
-        for (int i = 0; i < levelNumber; i++)
+        // ListenAgain.timesListened = 0; //reset listen again chances - gives overflow error?!
+        
+        int resetListenAgain = 0;
+        PlayerPrefs.SetInt("times listened", resetListenAgain);
+        try{
+            for (int i = 0; i < levelNumber; i++)
         {
             if (clickedAudios[i].IndexOf('*') != -1) //if the char * exists in the name of a button, it is the correct choice button
             {
@@ -122,9 +128,14 @@ public class SubmitButton : MonoBehaviour
             else
                 userLoses();
         }
+        }
+        catch(Exception e){
+            print("Please select one of the choices!");
+        }
     }
     private void userWins(int numberOfCorrectAns)
     {
+        //user wins 100%
         if(levelNumber == numberOfCorrectAns){
             //displaying win/lose screen
         foreach (var rnd in RoundComponents)
@@ -139,11 +150,18 @@ public class SubmitButton : MonoBehaviour
         thumbsDown.enabled = false;
         winSound.Play();
         }
+        //user wins less than 100%
         else
         {
             foreach(var item in showResults)
             {
-                item.SetActive(true);
+                //animate appearance of ticks and crosses:
+                //1.set the size/scale of the ticks and crosses to x=0, y=0, z=0
+                item.transform.localScale = new Vector3(0,0,0);
+                //2.activate them
+                item.SetActive(true); 
+                //3.make them increase size gradually till they reach scale: x=1,y=1,z=1
+                LeanTween.scale(item, new Vector3(1,1,1), 0.8f); 
             }
             foreach(var item in toggleGroup)
             {
@@ -175,6 +193,9 @@ public class SubmitButton : MonoBehaviour
         // Score = Score + 10;
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         roundNumber++;
+    }
+    private void Destroy(){
+        Destroy(gameObject);
     }
     private void userLoses()
     {

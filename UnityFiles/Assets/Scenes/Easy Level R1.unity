@@ -3718,7 +3718,7 @@ PrefabInstance:
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
@@ -3733,7 +3733,7 @@ PrefabInstance:
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: redirectToScreen
+      value: onClickingListenAgain
       objectReference: {fileID: 0}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
@@ -3909,9 +3909,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 879855070}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d242909888e26469cce24d488b6dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: d6ac333983c4d474b92dfbe39207fdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timesAllowed: 3
+  triesLeft: {fileID: 794263110}
 --- !u!224 &882275724 stripped
 RectTransform:
   m_CorrespondingSourceObject: {fileID: 6459232232046327118, guid: ed3d05bf7940a364e90ff5c1d7f92177,
@@ -5375,7 +5377,7 @@ PrefabInstance:
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
@@ -5386,12 +5388,11 @@ PrefabInstance:
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Target
       value: 
-      objectReference: {fileID: 8654270241694622458, guid: c5bcbc7d58a2a344491264bca8f5867c,
-        type: 3}
+      objectReference: {fileID: 1351499217}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: redirectToScreen
+      value: onClickingListenAgain
       objectReference: {fileID: 0}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
@@ -5567,9 +5568,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1351499216}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d242909888e26469cce24d488b6dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: d6ac333983c4d474b92dfbe39207fdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timesAllowed: 3
+  triesLeft: {fileID: 786468136}
 --- !u!1 &1354144308
 GameObject:
   m_ObjectHideFlags: 0
@@ -7541,7 +7544,7 @@ PrefabInstance:
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_Mode
-      value: 5
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
@@ -7556,7 +7559,7 @@ PrefabInstance:
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
       propertyPath: m_OnClick.m_PersistentCalls.m_Calls.Array.data[0].m_MethodName
-      value: redirectToScreen
+      value: onClickingListenAgain
       objectReference: {fileID: 0}
     - target: {fileID: 136592150956813813, guid: d802c26e5b59e0741b4094a667821fda,
         type: 3}
@@ -7732,9 +7735,11 @@ MonoBehaviour:
   m_GameObject: {fileID: 1698418813}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 54d242909888e26469cce24d488b6dd7, type: 3}
+  m_Script: {fileID: 11500000, guid: d6ac333983c4d474b92dfbe39207fdcc, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  timesAllowed: 3
+  triesLeft: {fileID: 1923553598}
 --- !u!1 &1707626798
 GameObject:
   m_ObjectHideFlags: 0
@@ -8973,7 +8978,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 3
+  m_Text: 
 --- !u!222 &1923553601
 CanvasRenderer:
   m_ObjectHideFlags: 0

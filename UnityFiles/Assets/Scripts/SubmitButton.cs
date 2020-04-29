@@ -48,7 +48,7 @@ public class SubmitButton : MonoBehaviour
 
         toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
         hearts = GameObject.FindGameObjectsWithTag("life");
-        showResults = GameObject.FindGameObjectsWithTag("evaluation");
+        //showResults = GameObject.FindGameObjectsWithTag("evaluation");
         foreach(var item in showResults){
             item.SetActive(false);
         }
@@ -58,7 +58,7 @@ public class SubmitButton : MonoBehaviour
     {
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
-        //if( ToggleGroup == null ) ToggleGroup = GetComponent<ToggleGroup>(); //make sure I have toggle group
+        
     }
     public static int levelNumber;
     [SerializeField]
@@ -81,7 +81,6 @@ public class SubmitButton : MonoBehaviour
     public void clickingSubmit()
     {
         Debug.Log("Hello from inside Submit");
-        // ListenAgain.timesListened = 0; //reset listen again chances - gives overflow error?!
         
         int resetListenAgain = 0;
         PlayerPrefs.SetInt("times listened", resetListenAgain);
@@ -104,15 +103,6 @@ public class SubmitButton : MonoBehaviour
         if (levelNumber == 1)
         {
             if(aims == 1)
-                userWins(1);
-            else
-                userLoses();
-        }
-        else if (levelNumber == 2)
-        {
-            if(aims == 2)
-                userWins(2);
-            else if(miss == 1)
                 userWins(1);
             else
                 userLoses();
@@ -150,34 +140,9 @@ public class SubmitButton : MonoBehaviour
         thumbsDown.enabled = false;
         winSound.Play();
         }
-        //user wins less than 100%
-        else
-        {
-            foreach(var item in showResults)
-            {
-                //animate appearance of ticks and crosses:
-                //1.set the size/scale of the ticks and crosses to x=0, y=0, z=0
-                item.transform.localScale = new Vector3(0,0,0);
-                //2.activate them
-                item.SetActive(true); 
-                //3.make them increase size gradually till they reach scale: x=1,y=1,z=1
-                LeanTween.scale(item, new Vector3(1,1,1), 0.8f); 
-            }
-            foreach(var item in toggleGroup)
-            {
-                item.SetActive(false);
-            }
-        }
         switch(levelNumber){
             case 1:
             Score = Score + 5;
-            break;
-
-            case 2:
-            if(numberOfCorrectAns == 2)
-                Score = Score + 10;
-            else
-                Score = Score + 5;
             break;
 
             case 3:
@@ -216,15 +181,16 @@ public class SubmitButton : MonoBehaviour
         
     }
 
+
     /* variables for clickingToggle */
-    Stack stackOfTwo = new Stack(); //for med level
+    // Stack stackOfTwo = new Stack(); //for med level
     Stack stackOfThree = new Stack(); //for hard level
 
     public void clickingToggle()
     { //called every time a toggle is presseds
 
         GameObject activeToggle = EventSystem.current.currentSelectedGameObject;
-        List<GameObject> threeActiveToggles = new List<GameObject>(); //for Hard level
+        //List<GameObject> threeActiveToggles = new List<GameObject>(); //for Hard level
 
         //1. activate only the clicked toggle and deactivate all other toggles in the screen
         if (levelNumber == 1)
@@ -237,26 +203,6 @@ public class SubmitButton : MonoBehaviour
                 }
                 else
                     tgl.GetComponent<Toggle>().isOn = false;
-            }
-        }
-        else if (levelNumber == 2)
-        {
-            string activeToggleName = activeToggle.name;
-            if(stackOfTwo.Count == 2)
-            {
-                foreach(var tgl in toggleGroup)
-                {
-                    if(tgl != activeToggle)
-                        tgl.GetComponent<Toggle>().isOn = false;
-                }
-                stackOfTwo.Clear(); //this has to be beneath the foreach loop or otherwise the algorithm does not work!!
-                clickedAudios.Clear();
-            }
-            stackOfTwo.Push(activeToggleName);
-            clickedAudios.Add(activeToggleName);
-            print("stack has " + stackOfTwo.Count + " elements now.");
-            foreach(var obj in stackOfTwo){
-                print(obj);
             }
         }
         else if (levelNumber == 3)
@@ -302,13 +248,14 @@ public class SubmitButton : MonoBehaviour
         // }
     }
 
-    public void goToNextRound() //unused
-    {
-        EndOfRound.SetActive(false);
+    // public void goToNextRound() //unused
+    // {
+    //     print("inside gotonextround..");
+    //     EndOfRound.SetActive(false);
 
-        if (roundNumber == 2)
-            RoundComponents[1].SetActive(true); //activate the second round components
-        else if (roundNumber == 3)
-            RoundComponents[2].SetActive(true);
-    }
+    //     if (roundNumber == 2)
+    //         RoundComponents[1].SetActive(true); //activate the second round components
+    //     else if (roundNumber == 3)
+    //         RoundComponents[2].SetActive(true);
+    // }
 }

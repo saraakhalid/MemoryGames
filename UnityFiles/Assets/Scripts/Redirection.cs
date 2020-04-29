@@ -8,10 +8,16 @@ public class Redirection : MonoBehaviour
 {
     public void redirectToScreen(string sceneName)
     {
-        if (SubmitButton.roundNumber == 4)
+        if (SubmitButton.roundNumber == 4 || SubmitInMedium.roundNumber == 4)
         {
             SceneManager.LoadScene(8); //build index of Congrats scene is 8
-            SubmitButton.roundNumber++; //so that it does not enter this if statement again
+                if(SubmitButton.roundNumber == 4)
+                    SubmitButton.roundNumber++;
+                else
+                    SubmitInMedium.roundNumber++; //so that it does not enter this if statement again
+            //else if(levelNumber == 3)
+            //todo...
+
         }
         else
             SceneManager.LoadScene(sceneName); //old: Application.LoadLevel(sceneName) but compiler said it's obsolete

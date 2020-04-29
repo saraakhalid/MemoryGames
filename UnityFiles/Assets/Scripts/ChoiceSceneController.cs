@@ -13,10 +13,26 @@ public class ChoiceSceneController : MonoBehaviour
     private void Awake() {
         foreach(var rnd in RoundComponents)
         {
-            Debug.Log("Round number: ");
-            Debug.Log(SubmitButton.roundNumber);
+            if(LoadLevelAfterTime.levelNo == 1)
+            {
+                Debug.Log("Round number: ");
+                Debug.Log(SubmitButton.roundNumber);
             
-            if(rnd == RoundComponents[SubmitButton.roundNumber-1])
+                if(rnd == RoundComponents[SubmitInMedium.roundNumber-1])
+                    {rnd.SetActive(true); //activate the second round components
+                    }
+                else
+                    {
+                        rnd.SetActive(false);
+                        oldRound = rnd;
+                    }
+            }
+            else if(LoadLevelAfterTime.levelNo == 2)
+            {
+                Debug.Log("Round number: ");
+                Debug.Log(SubmitInMedium.roundNumber);
+            
+            if(rnd == RoundComponents[SubmitInMedium.roundNumber-1])
                 {rnd.SetActive(true); //activate the second round components
                 }
             else
@@ -24,11 +40,8 @@ public class ChoiceSceneController : MonoBehaviour
                     rnd.SetActive(false);
                     oldRound = rnd;
                 }
+            }
         }
         //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
-    // public void goNextRoundd(){
-    //     SceneManager.GetActiveScene();
-    //     Destroy(oldRound);
-    // }
 }

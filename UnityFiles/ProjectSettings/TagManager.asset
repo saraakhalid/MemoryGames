@@ -10,6 +10,7 @@ TagManager:
   - star
   - life
   - evaluation
+  - buttons
   layers:
   - Default
   - TransparentFX

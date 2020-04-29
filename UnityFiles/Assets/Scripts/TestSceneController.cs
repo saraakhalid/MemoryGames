@@ -15,10 +15,22 @@ public class TestSceneController : MonoBehaviour
 
         foreach (var rnd in RoundComponents)
         {
-            if (rnd == RoundComponents[SubmitButton.roundNumber - 1])
-                rnd.SetActive(true); //activate the second round components
-            else
-                rnd.SetActive(false);
+            if(LoadLevelAfterTime.levelNo == 1)
+                {
+                    print("I'm passing through TestSceneController");
+                    if (rnd == RoundComponents[SubmitButton.roundNumber - 1])
+                        rnd.SetActive(true); //activate the second round components
+                    else
+                        rnd.SetActive(false);
+                }
+            else if(LoadLevelAfterTime.levelNo == 2)
+            {
+                print("I'm passing through TestSceneController");
+                if (rnd == RoundComponents[SubmitInMedium.roundNumber - 1])
+                    rnd.SetActive(true); //activate the second round components
+                else
+                    rnd.SetActive(false);
+            }
         }
     }
 }

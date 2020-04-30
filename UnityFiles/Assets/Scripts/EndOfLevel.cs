@@ -22,8 +22,16 @@ public class EndOfLevel : MonoBehaviour
                 s.SetActive(false);
             }
         }
-        if(SubmitButton.levelNumber == 1)
-        {
+        if(LoadLevelAfterTime.levelNo == 1)
+            endOfEasyLevel();
+        else if(LoadLevelAfterTime.levelNo == 2)
+            endOfMediumLevel();
+        else
+            endOfHardLevel();
+    }
+
+    // Update is called once per frame
+    private void endOfEasyLevel(){
             if(SubmitButton.Score <= 5)
             {
                 stars[1].SetActive(true);
@@ -39,49 +47,40 @@ public class EndOfLevel : MonoBehaviour
             stars[1].SetActive(true);
             stars[2].SetActive(true);
         }
-        }
-        else if(SubmitButton.levelNumber == 2)
-        {
-            if(SubmitButton.Score <= 10)
+    }
+
+    private void endOfMediumLevel(){
+            if(SubmitInMedium.Score <= 10)
             {
             stars[1].SetActive(true);
             }
-            else if(SubmitButton.Score > 10 && SubmitButton.Score <= 20)
+            else if(SubmitInMedium.Score > 10 && SubmitInMedium.Score <= 20)
             {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
             }
-            else if(SubmitButton.Score > 20 && SubmitButton.Score <= 30)
+            else if(SubmitInMedium.Score > 20 && SubmitInMedium.Score <= 30)
             {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
             stars[2].SetActive(true);
             }
-        }
-        else{
-            if(SubmitButton.Score <= 20)
+    }
+    private void endOfHardLevel(){
+            if(SubmitInHard.Score <= 20)
             {
             stars[1].SetActive(true);
             }
-            else if(SubmitButton.Score > 20 && SubmitButton.Score <= 40)
+            else if(SubmitInHard.Score > 20 && SubmitInHard.Score <= 40)
             {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
             }
-            else if(SubmitButton.Score > 40 && SubmitButton.Score <= 60)
+            else if(SubmitInHard.Score > 40 && SubmitInHard.Score <= 60)
             {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
             stars[2].SetActive(true);                
             }
-        }
-        
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-
     }
 }

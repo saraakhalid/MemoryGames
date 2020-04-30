@@ -2080,8 +2080,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: ea5cea7ec74b6bd4b9b802ad26b66e47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  delayBeforeLoading: 5
-  sceneName: Easy Level R1
+  delayBeforeLoading: 20
+  sceneName: Hard Level R1
 --- !u!4 &1761246336
 Transform:
   m_ObjectHideFlags: 0

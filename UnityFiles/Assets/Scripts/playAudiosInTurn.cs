@@ -1,18 +1,20 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class playAudiosInTurn : MonoBehaviour
 {
-    public GameObject Audio1;
-    public GameObject Audio2;
+    public GameObject[] Audios;
     private string notifyPlayer;
+    public GameObject whichPlayingAudio;
     // Start is called before the first frame update
     void Start()
     {
-        Audio1.GetComponent<AudioSource>().Play();
+        Audios[0].GetComponent<AudioSource>().Play();
         notifyPlayer = "first audio is playing ...";
-        print(notifyPlayer);
+        // print(notifyPlayer);
+        whichPlayingAudio.GetComponent<Text>().text = notifyPlayer;
         loadNextAudio();
     }
     void loadNextAudio(){
@@ -20,17 +22,24 @@ public class playAudiosInTurn : MonoBehaviour
         StartCoroutine(WaitUntilFirstAudioStops());
     }
     IEnumerator WaitUntilFirstAudioStops(){
-        Debug.Log("started waiting in coroutine");
-        yield return new WaitForSeconds(Audio1.GetComponent<AudioSource>().clip.length+1);
-        Debug.Log("finished waiting in coroutine");
+        yield return new WaitForSeconds(Audios[0].GetComponent<AudioSource>().clip.length+1);
         notifyPlayer = "";
-        print(notifyPlayer);
-        Audio2.GetComponent<AudioSource>().Play();
+        whichPlayingAudio.GetComponent<Text>().text = notifyPlayer;
+        //print(notifyPlayer);
+        Audios[1].GetComponent<AudioSource>().Play();
         notifyPlayer = "second audio is playing ...";
-        print(notifyPlayer);
+        //print(notifyPlayer);
+        whichPlayingAudio.GetComponent<Text>().text = notifyPlayer;
+        if(Audios[2]!=null)
+        {
+            yield return new WaitForSeconds(Audios[1].GetComponent<AudioSource>().clip.length+1);
+            notifyPlayer = "";
+            //print(notifyPlayer);
+            whichPlayingAudio.GetComponent<Text>().text = notifyPlayer;
+            Audios[2].GetComponent<AudioSource>().Play();
+            notifyPlayer = "third audio is playing ...";
+            // print(notifyPlayer);
+            whichPlayingAudio.GetComponent<Text>().text = notifyPlayer;
+        }
     }
-
-    // void Update(){
-    //     Debug.Log(notifyPlayer);
-    // }
 }

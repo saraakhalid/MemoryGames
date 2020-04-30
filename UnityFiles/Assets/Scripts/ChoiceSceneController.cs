@@ -18,7 +18,7 @@ public class ChoiceSceneController : MonoBehaviour
                 Debug.Log("Round number: ");
                 Debug.Log(SubmitButton.roundNumber);
             
-                if(rnd == RoundComponents[SubmitInMedium.roundNumber-1])
+                if(rnd == RoundComponents[SubmitButton.roundNumber-1])
                     {rnd.SetActive(true); //activate the second round components
                     }
                 else
@@ -41,7 +41,20 @@ public class ChoiceSceneController : MonoBehaviour
                     oldRound = rnd;
                 }
             }
+            else if(LoadLevelAfterTime.levelNo == 3)
+            {
+                Debug.Log("Round number: ");
+                Debug.Log(SubmitInHard.roundNumber);
+            
+            if(rnd == RoundComponents[SubmitInHard.roundNumber-1])
+                {rnd.SetActive(true); //activate the second round components
+                }
+            else
+                {
+                    rnd.SetActive(false);
+                    oldRound = rnd;
+                }
+            }
         }
-        //SceneManager.LoadScene(SceneManager.GetActiveScene().buildIndex);
     }
 }

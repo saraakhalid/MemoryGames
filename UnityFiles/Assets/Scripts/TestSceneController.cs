@@ -31,6 +31,13 @@ public class TestSceneController : MonoBehaviour
                 else
                     rnd.SetActive(false);
             }
+            else if(LoadLevelAfterTime.levelNo == 3)
+            {
+                if (rnd == RoundComponents[SubmitInHard.roundNumber - 1])
+                    rnd.SetActive(true); //activate the second round components
+                else
+                    rnd.SetActive(false);
+            }
         }
     }
 }

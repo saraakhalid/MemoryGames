@@ -8,13 +8,17 @@ public class Redirection : MonoBehaviour
 {
     public void redirectToScreen(string sceneName)
     {
-        if (SubmitButton.roundNumber == 4 || SubmitInMedium.roundNumber == 4)
+        if (SubmitButton.roundNumber == 4 || SubmitInMedium.roundNumber == 4 || SubmitInHard.roundNumber == 4)
         {
             SceneManager.LoadScene(8); //build index of Congrats scene is 8
                 if(SubmitButton.roundNumber == 4)
                     SubmitButton.roundNumber++;
-                else
+                else if(SubmitInMedium.roundNumber == 4)
                     SubmitInMedium.roundNumber++; //so that it does not enter this if statement again
+                else
+                {
+                    SubmitInHard.roundNumber++;
+                }
             //else if(levelNumber == 3)
             //todo...
 

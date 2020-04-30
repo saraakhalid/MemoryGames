@@ -1,13 +1,14 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
-using UnityEngine.EventSystems;
 using UnityEngine;
 using UnityEngine.UI;
 using System.Linq;
 using System.Collections.Generic;
 using System; //for error catching
+using UnityEngine.EventSystems;
+using UnityEngine.SceneManagement;
 
-public class SubmitButton : MonoBehaviour
+public class SubmitInHard : MonoBehaviour
 {
     //todo: add time
     public static int roundNumber = 1;
@@ -36,55 +37,81 @@ public class SubmitButton : MonoBehaviour
     [SerializeField]
     private GameObject[] RoundComponents;
 
-
-    void Awake()
+    // Start is called before the first frame update
+    void Start()
     {
-
-        Debug.Log("Good Morning"); //debug
-        setLevelNumber();
+        Debug.Log("Good Morning from Hard :)"); //debug
         winSound = GetComponent<AudioSource>();
 
         clickedAudios = new List<string>();
 
         toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
         hearts = GameObject.FindGameObjectsWithTag("life");
-        //showResults = GameObject.FindGameObjectsWithTag("evaluation");
+        showResults = GameObject.FindGameObjectsWithTag("evaluation");
         foreach (var item in showResults)
         {
             item.SetActive(false);
         }
-
     }
+
+    // Update is called once per frame
+    int ret = 0;
     void Update()
     {
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
 
+        //when user gets less than 100% correct answer; 1/2 correct or 1/3 or 2/3 correct
+        if (advanceToNextLevel == true)
+        {
+            print("advancetolevel is true");
+            if (ret != 1)
+            {
+                ret = LoadLevelAfterTime("Hard Level Start");
+            }
+        }
     }
-    public static int levelNumber;
-    [SerializeField]
-    string level;
-    private void setLevelNumber()
-    {
-        if (level == "Easy")
-        { levelNumber = 1; }
-        else if (level == "Medium")
-        { levelNumber = 2; }
-        else if (level == "Hard")
-        { levelNumber = 3; }
 
-        Debug.Log("level number is: " + levelNumber);
-    }
+    //SET STUFF UP --------------------------
+    public static int levelNumber = 3;
+    string level = "Hard";
+
 
     int aims = 0; //number of correct choices
     int miss = 0; //number of wrong choices
 
-    public void clickingSubmit()
+    //SET STUFF UP DONE --------------------------
+    Stack stackOfThree = new Stack(); //for hard level
+    public void clickingToggleInHard()
     {
-        Debug.Log("Hello from inside Submit");
+        GameObject activeToggle = EventSystem.current.currentSelectedGameObject;
 
+        string activeToggleName = activeToggle.name; //just in case it gets changed inside the foreach loop
+        if (stackOfThree.Count == 3)
+        {
+            foreach (var tgl in toggleGroup)
+            {
+                if (tgl != activeToggle)
+                    tgl.GetComponent<Toggle>().isOn = false;
+            }
+            stackOfThree.Clear();
+            clickedAudios.Clear(); //for submitButton function
+        }
+        stackOfThree.Push(activeToggleName);
+        clickedAudios.Add(activeToggleName);
+        print("stack has " + stackOfThree.Count + " elements now.");
+        foreach (var obj in stackOfThree)
+        {
+            print(obj);
+        }
+
+    }
+    public void clickingSubmitInHard()
+    {
+        //ListenAgain is reset for every round
         int resetListenAgain = 0;
         PlayerPrefs.SetInt("times listened", resetListenAgain);
+
         try
         {
             for (int i = 0; i < levelNumber; i++)
@@ -101,31 +128,22 @@ public class SubmitButton : MonoBehaviour
                     Debug.Log("Choice is wrong! Miss: " + miss);
                 }
             }
-
-            if (levelNumber == 1)
-            {
-                if (aims == 1)
-                    userWins(1);
-                else
-                    userLoses();
-            }
-            else if (levelNumber == 3)
-            {
-                if (aims == 3)
-                    userWins(3);
-                else if (miss == 1)
-                    userWins(2);
-                else if (miss == 2)
-                    userWins(1);
-                else
-                    userLoses();
-            }
+            if (aims == 3)
+                userWins(3);
+            else if (miss == 2)
+                userWins(2);
+            else if(miss == 1)
+                userWins(1);
+            else
+                userLoses();
         }
         catch (Exception e)
         {
             print("Please select one of the choices!");
         }
+
     }
+
     private void userWins(int numberOfCorrectAns)
     {
         //user wins 100%
@@ -144,16 +162,24 @@ public class SubmitButton : MonoBehaviour
             thumbsDown.enabled = false;
             winSound.Play();
         }
+        //user wins less than 100% - gets half right or 1/3 right or 2/3 right answers
+        else
+        {
+            performChecks();
+        }
+
+        //changing score
+        if (numberOfCorrectAns == 3)
+            Score = Score + 20;
+        else if(numberOfCorrectAns == 2)
+            Score = Score + 10;
+        else
             Score = Score + 5;
 
-        // Score = Score + 10;
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         roundNumber++;
     }
-    private void Destroy()
-    {
-        Destroy(gameObject);
-    }
+
     private void userLoses()
     {
         foreach (var rnd in RoundComponents)
@@ -173,61 +199,51 @@ public class SubmitButton : MonoBehaviour
 
     }
 
-
-    /* variables for clickingToggle */
-    // Stack stackOfTwo = new Stack(); //for med level
-
-
-    public void clickingToggle()
-    { //called every time a toggle is presseds
-
-        GameObject activeToggle = EventSystem.current.currentSelectedGameObject;
-        //List<GameObject> threeActiveToggles = new List<GameObject>(); //for Hard level
-
-        //1. activate only the clicked toggle and deactivate all other toggles in the screen
-        if (levelNumber == 1)
+    bool advanceToNextLevel = false;
+    void performChecks()
+    {
+        foreach (var item in showResults)
         {
-            foreach (var tgl in toggleGroup)
-            {
-                if (tgl == activeToggle)
-                {
-                    tgl.GetComponent<Toggle>().isOn = true;
-                }
-                else
-                    tgl.GetComponent<Toggle>().isOn = false;
-            }
+            //animate appearance of ticks and crosses:
+            //1.set the size/scale of the ticks and crosses to x=0, y=0, z=0
+            item.transform.localScale = new Vector3(0, 0, 0);
+            //2.activate them
+            item.SetActive(true);
+            //3.make them increase size gradually till they reach scale: x=1,y=1,z=1
+            LeanTween.scale(item, new Vector3(1, 1, 1), 0.8f);
+        }
+        foreach (var item in toggleGroup)
+        {
+            item.SetActive(false);
         }
 
-        //2. get the name of the currently active toggle
-        string selectedToggle = activeToggle.name;
-
-        Debug.Log("active toggle: " + selectedToggle);
-        // print(selectedToggle);
-
-        //3. add it to an array of user answers for validation when submitting
-        if (levelNumber == 1)
+        //automatically hide all buttons and move to next level
+        GameObject[] buttons = GameObject.FindGameObjectsWithTag("buttons");
+        foreach (var btn in buttons)
         {
-            clickedAudios.Clear(); //clear the array
-            clickedAudios.Add(selectedToggle); //add the name of the toggle to the array
+            btn.SetActive(false);
         }
 
-        //debugging ....
-        //displaying clickedAudios
-        // print("displaying clicked audios...");
-        // for (int i = 0; i < clickedAudios.Count; i++)
-        // {
-        //     Debug.Log(clickedAudios[i]);
-        // }
+        advanceToNextLevel = true; //go to LateUpdate()
     }
 
-    // public void goToNextRound() //unused
-    // {
-    //     print("inside gotonextround..");
-    //     EndOfRound.SetActive(false);
+    float delayBeforeLoading = 5;
+    float timeElapsed = 0;
+    int LoadLevelAfterTime(string nameOfScene)
+    {
+        Debug.Log("inside loadLEvelAfterWait");
 
-    //     if (roundNumber == 2)
-    //         RoundComponents[1].SetActive(true); //activate the second round components
-    //     else if (roundNumber == 3)
-    //         RoundComponents[2].SetActive(true);
-    // }
+        timeElapsed += Time.deltaTime;
+
+        if (timeElapsed > delayBeforeLoading)
+        {
+            Debug.Log("loading next scene");
+            SceneManager.LoadScene(nameOfScene);
+            return 1;
+        }
+        else
+        {
+            return 0;
+        }
+    }
 }

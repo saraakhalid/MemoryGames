@@ -27,15 +27,15 @@ RectTransform:
   m_GameObject: {fileID: 1667762558122268166}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.91972184, y: 1.2881821, z: 1.1848}
+  m_LocalScale: {x: 0.5, y: 0.7, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2004227900473384480}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 111}
-  m_SizeDelta: {x: 800, y: 800}
+  m_AnchoredPosition: {x: 0, y: 123.3}
+  m_SizeDelta: {x: 1355.5, y: 1690.7}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &1667762558122268163
 CanvasRenderer:
@@ -64,19 +64,22 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 50
+    m_Font: {fileID: 12800000, guid: e0429f7b38678bb47ad1cef091a235e9, type: 3}
+    m_FontSize: 90
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 3
-    m_MaxSize: 50
+    m_MinSize: 0
+    m_MaxSize: 150
     m_Alignment: 4
     m_AlignByGeometry: 0
-    m_RichText: 1
+    m_RichText: 0
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: GAME INFORMATION
+  m_Text: "This game is designed to train your ability to retain and recall sounds
+    you heard after a short period of time. \r\nTo play, you will listen to a short
+    tone. Then you will be shown some choices. Choose the tone you heard and click
+    submit to submit your answer.\r\nKeep playing more rounds to gather more points!"
 --- !u!1 &2004227900473384483
 GameObject:
   m_ObjectHideFlags: 0
@@ -179,15 +182,15 @@ RectTransform:
   m_GameObject: {fileID: 2004227901516938651}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_LocalScale: {x: 0.5, y: 0.5, z: 0.5}
   m_Children: []
   m_Father: {fileID: 2004227901615048216}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: 0}
-  m_SizeDelta: {x: 50, y: 55.9}
+  m_AnchoredPosition: {x: -0.00000023842, y: 0.0000033379}
+  m_SizeDelta: {x: 107.36, y: 106.76}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2004227901516938654
 CanvasRenderer:
@@ -216,12 +219,12 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls: []
   m_FontData:
-    m_Font: {fileID: 10102, guid: 0000000000000000e000000000000000, type: 0}
-    m_FontSize: 30
+    m_Font: {fileID: 12800000, guid: e0429f7b38678bb47ad1cef091a235e9, type: 3}
+    m_FontSize: 100
     m_FontStyle: 1
     m_BestFit: 1
     m_MinSize: 0
-    m_MaxSize: 60
+    m_MaxSize: 100
     m_Alignment: 4
     m_AlignByGeometry: 0
     m_RichText: 1
@@ -266,7 +269,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -472}
+  m_AnchoredPosition: {x: 0, y: -573.85004}
   m_SizeDelta: {x: 100.4, y: 86.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &2004227901615048223
@@ -371,4 +374,4 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 225ac6f65e148cc45bf4f85382046e3b, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  HelpPanel: {fileID: 0}
+  HelpPanel: {fileID: 2004227900473384483}

@@ -102,24 +102,10 @@ public class SubmitButton : MonoBehaviour
                 }
             }
 
-            if (levelNumber == 1)
-            {
-                if (aims == 1)
-                    userWins(1);
-                else
-                    userLoses();
-            }
-            else if (levelNumber == 3)
-            {
-                if (aims == 3)
-                    userWins(3);
-                else if (miss == 1)
-                    userWins(2);
-                else if (miss == 2)
-                    userWins(1);
-                else
-                    userLoses();
-            }
+            if (aims == 1)
+                userWins(1);
+            else
+                userLoses();
         }
         catch (Exception e)
         {
@@ -185,8 +171,6 @@ public class SubmitButton : MonoBehaviour
         //List<GameObject> threeActiveToggles = new List<GameObject>(); //for Hard level
 
         //1. activate only the clicked toggle and deactivate all other toggles in the screen
-        if (levelNumber == 1)
-        {
             foreach (var tgl in toggleGroup)
             {
                 if (tgl == activeToggle)
@@ -196,7 +180,6 @@ public class SubmitButton : MonoBehaviour
                 else
                     tgl.GetComponent<Toggle>().isOn = false;
             }
-        }
 
         //2. get the name of the currently active toggle
         string selectedToggle = activeToggle.name;
@@ -205,11 +188,8 @@ public class SubmitButton : MonoBehaviour
         // print(selectedToggle);
 
         //3. add it to an array of user answers for validation when submitting
-        if (levelNumber == 1)
-        {
             clickedAudios.Clear(); //clear the array
             clickedAudios.Add(selectedToggle); //add the name of the toggle to the array
-        }
 
         //debugging ....
         //displaying clickedAudios

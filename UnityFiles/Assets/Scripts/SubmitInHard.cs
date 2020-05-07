@@ -40,13 +40,19 @@ public class SubmitInHard : MonoBehaviour
     // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Good Morning from Hard :)"); //debug
+        Debug.Log("Good Morning from Hard :)"); 
         winSound = GetComponent<AudioSource>();
 
         clickedAudios = new List<string>();
 
         toggleGroup = GameObject.FindGameObjectsWithTag("ToggleButton");
         hearts = GameObject.FindGameObjectsWithTag("life");
+        // int livesLeft = PlayerPrefs.GetInt("lives");
+        // for(int i=0; i<livesLeft;i++)
+        // {
+        //     hearts[i].SetActive(true);
+        // }
+        
         showResults = GameObject.FindGameObjectsWithTag("evaluation");
         foreach (var item in showResults)
         {
@@ -64,12 +70,23 @@ public class SubmitInHard : MonoBehaviour
         //when user gets less than 100% correct answer; 1/2 correct or 1/3 or 2/3 correct
         if (advanceToNextLevel == true)
         {
-            print("advancetolevel is true");
+            //print("advancetolevel is true");
             if (ret != 1)
             {
                 ret = LoadLevelAfterTime("Hard Level Start");
             }
         }
+
+        int livesLeft = PlayerPrefs.GetInt("lives");
+        for(int i=0; i<livesLeft;i++)
+        {
+            hearts[i].SetActive(true);
+        }
+        // while(livesLeft < 3)
+        // {
+        //     hearts[livesLeft].SetActive(false);
+        //     livesLeft++;
+        // }
     }
 
     //SET STUFF UP --------------------------
@@ -105,6 +122,10 @@ public class SubmitInHard : MonoBehaviour
             print(obj);
         }
 
+        //2. get the name of the currently active toggle
+        string selectedToggle = activeToggle.name;
+        Debug.Log("active toggle: " + selectedToggle);
+
     }
     public void clickingSubmitInHard()
     {
@@ -130,9 +151,9 @@ public class SubmitInHard : MonoBehaviour
             }
             if (aims == 3)
                 userWins(3);
-            else if (miss == 2)
+            else if (aims == 2)
                 userWins(2);
-            else if(miss == 1)
+            else if(aims == 1)
                 userWins(1);
             else
                 userLoses();
@@ -178,6 +199,7 @@ public class SubmitInHard : MonoBehaviour
 
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         roundNumber++;
+        print(roundNumber);
     }
 
     private void userLoses()
@@ -193,9 +215,13 @@ public class SubmitInHard : MonoBehaviour
         thumbsUp.enabled = false;
         thumbsDown.enabled = true;
         roundNumber++;
+        print(roundNumber);
+        
         int count = hearts.Count();
         hearts[count - 1].SetActive(false); //the last heart is deactivated
         hearts = hearts.Take(hearts.Length - 1).ToArray(); //the array crops it out so next time the last element is a different heart
+        print("hearts.Length: " + hearts.Length);
+        PlayerPrefs.SetInt("lives", hearts.Length);
 
     }
 
@@ -224,20 +250,27 @@ public class SubmitInHard : MonoBehaviour
             btn.SetActive(false);
         }
 
-        advanceToNextLevel = true; //go to LateUpdate()
+        advanceToNextLevel = true;
+
+        //adjust the lives
+        int count = hearts.Count();
+        hearts[count - 1].SetActive(false); //the last heart is deactivated
+        hearts = hearts.Take(hearts.Length - 1).ToArray();
+        print("hearts.Length: " + hearts.Length);
+        PlayerPrefs.SetInt("lives", hearts.Length);
     }
 
     float delayBeforeLoading = 5;
     float timeElapsed = 0;
     int LoadLevelAfterTime(string nameOfScene)
     {
-        Debug.Log("inside loadLEvelAfterWait");
+        //Debug.Log("inside loadLEvelAfterWait");
 
         timeElapsed += Time.deltaTime;
 
         if (timeElapsed > delayBeforeLoading)
         {
-            Debug.Log("loading next scene");
+            //Debug.Log("loading next scene");
             SceneManager.LoadScene(nameOfScene);
             return 1;
         }

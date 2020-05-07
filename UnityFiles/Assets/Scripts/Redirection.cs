@@ -10,12 +10,13 @@ public class Redirection : MonoBehaviour
     {
         if (SubmitButton.roundNumber == 4 || SubmitInMedium.roundNumber == 4 || SubmitInHard.roundNumber == 4)
         {
+            print("should load congrats");
             SceneManager.LoadScene(8); //build index of Congrats scene is 8
                 if(SubmitButton.roundNumber == 4)
                     SubmitButton.roundNumber++;
                 else if(SubmitInMedium.roundNumber == 4)
                     SubmitInMedium.roundNumber++; //so that it does not enter this if statement again
-                else
+                else if(SubmitInHard.roundNumber == 4)
                 {
                     SubmitInHard.roundNumber++;
                 }
@@ -28,6 +29,7 @@ public class Redirection : MonoBehaviour
     }
     public void QuitGame()
     {
+        PlayerPrefs.SetInt("lives",3);
         Application.Quit();
     }
 }

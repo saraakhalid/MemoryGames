@@ -9,8 +9,11 @@ public class ChoiceSceneController : MonoBehaviour
     [SerializeField]
     private GameObject[] RoundComponents;
     private GameObject oldRound;
+    private GameObject[] hearts;
 
     private void Awake() {
+        hearts = GameObject.FindGameObjectsWithTag("life");
+
         foreach(var rnd in RoundComponents)
         {
             if(LoadLevelAfterTime.levelNo == 1)
@@ -19,7 +22,15 @@ public class ChoiceSceneController : MonoBehaviour
                 Debug.Log(SubmitButton.roundNumber);
             
                 if(rnd == RoundComponents[SubmitButton.roundNumber-1])
-                    {rnd.SetActive(true); //activate the second round components
+                    {
+                        rnd.SetActive(true); //activate the second round components
+
+                        //retrieve lives
+                        int livesLeft = PlayerPrefs.GetInt("lives");
+                        for(int i=0; i<livesLeft;i++)
+                        {
+                            hearts[i].SetActive(true);
+                        }
                     }
                 else
                     {

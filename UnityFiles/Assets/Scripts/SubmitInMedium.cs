@@ -24,6 +24,7 @@ public class SubmitInMedium : MonoBehaviour
 
     [SerializeField]
     private GameObject EndOfRound;
+    public GameObject EndOfRoundWithEvaluation;
 
     [SerializeField]
     private Text txtEndOfRound = null;
@@ -65,7 +66,9 @@ public class SubmitInMedium : MonoBehaviour
         {
             print("advancetolevel is true");
             if(ret !=1){
-                ret = LoadLevelAfterTime("Medium Level Start");
+                //ret = LoadLevelAfterTime("Medium Level Start");
+                EndOfRoundWithEvaluation.SetActive(true);
+                ret++;
             }
         }
     }
@@ -219,22 +222,22 @@ public class SubmitInMedium : MonoBehaviour
             advanceToNextLevel = true; //go to LateUpdate()
     }
 
-    float delayBeforeLoading = 5;
-    float timeElapsed = 0;
-    int LoadLevelAfterTime(string nameOfScene){
-        Debug.Log("inside loadLEvelAfterWait");
+    // float delayBeforeLoading = 5;
+    // float timeElapsed = 0;
+    // int LoadLevelAfterTime(string nameOfScene){
+    //     Debug.Log("inside loadLEvelAfterWait");
 
-        timeElapsed += Time.deltaTime;
+    //     timeElapsed += Time.deltaTime;
 
-        if(timeElapsed > delayBeforeLoading)
-        {
-            Debug.Log("loading next scene");
-            SceneManager.LoadScene(nameOfScene);
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
+    //     if(timeElapsed > delayBeforeLoading)
+    //     {
+    //         Debug.Log("loading next scene");
+    //         SceneManager.LoadScene(nameOfScene);
+    //         return 1;
+    //     }
+    //     else
+    //     {
+    //         return 0;
+    //     }
+    // }
 }

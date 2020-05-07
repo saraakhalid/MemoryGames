@@ -8,6 +8,7 @@ public class Redirection : MonoBehaviour
 {
     public void redirectToScreen(string sceneName)
     {
+        print("round number from redirection script: " + SubmitInHard.roundNumber);
         if (SubmitButton.roundNumber == 4 || SubmitInMedium.roundNumber == 4 || SubmitInHard.roundNumber == 4)
         {
             print("should load congrats");

@@ -24,6 +24,7 @@ public class SubmitInHard : MonoBehaviour
 
     [SerializeField]
     private GameObject EndOfRound;
+    public GameObject EndOfRoundWithEvaluation;
 
     [SerializeField]
     private Text txtEndOfRound = null;
@@ -36,6 +37,8 @@ public class SubmitInHard : MonoBehaviour
     AudioSource winSound;
     [SerializeField]
     private GameObject[] RoundComponents;
+
+    GameObject performRedirectionScript; //empty game object to act as a bridge between this script and Redirection.cs
 
     // Start is called before the first frame update
     void Start()
@@ -73,7 +76,9 @@ public class SubmitInHard : MonoBehaviour
             //print("advancetolevel is true");
             if (ret != 1)
             {
-                ret = LoadLevelAfterTime("Hard Level Start");
+                //ret = LoadLevelAfterTime("Hard Level Start");
+                EndOfRoundWithEvaluation.SetActive(true);
+                ret++;
             }
         }
 
@@ -199,7 +204,7 @@ public class SubmitInHard : MonoBehaviour
 
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         roundNumber++;
-        print(roundNumber);
+        print("round number from userWins " +    roundNumber);
     }
 
     private void userLoses()
@@ -215,7 +220,7 @@ public class SubmitInHard : MonoBehaviour
         thumbsUp.enabled = false;
         thumbsDown.enabled = true;
         roundNumber++;
-        print(roundNumber);
+        print("round number from userLoses: " + roundNumber);
         
         int count = hearts.Count();
         hearts[count - 1].SetActive(false); //the last heart is deactivated
@@ -260,23 +265,25 @@ public class SubmitInHard : MonoBehaviour
         PlayerPrefs.SetInt("lives", hearts.Length);
     }
 
-    float delayBeforeLoading = 5;
-    float timeElapsed = 0;
-    int LoadLevelAfterTime(string nameOfScene)
-    {
-        //Debug.Log("inside loadLEvelAfterWait");
+    // do not think I need this for now.
+    // float delayBeforeLoading = 5;
+    // float timeElapsed = 0;
+    // int LoadLevelAfterTime(string nameOfScene)
+    // {
+    //     //Debug.Log("inside loadLEvelAfterWait");
 
-        timeElapsed += Time.deltaTime;
+    //     timeElapsed += Time.deltaTime;
 
-        if (timeElapsed > delayBeforeLoading)
-        {
-            //Debug.Log("loading next scene");
-            SceneManager.LoadScene(nameOfScene);
-            return 1;
-        }
-        else
-        {
-            return 0;
-        }
-    }
+    //     if (timeElapsed > delayBeforeLoading)
+    //     {
+    //         //Debug.Log("loading next scene");
+    //         //Redirection.redirectToScreen("Hard Level Start");
+    //         performRedirectionScript.SetActive(true);
+    //         return 1;
+    //     }
+    //     else
+    //     {
+    //         return 0;
+    //     }
+    // }
 }

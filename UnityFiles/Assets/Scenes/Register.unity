@@ -321,6 +321,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pnlGameInfo
       objectReference: {fileID: 0}
+    - target: {fileID: 2004227900473384483, guid: cb404c5148542164cb3295df9f2721bd,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: cb404c5148542164cb3295df9f2721bd, type: 3}
 --- !u!224 &224200219 stripped
@@ -1244,7 +1249,7 @@ PrefabInstance:
     - target: {fileID: 7066756949034990896, guid: d2261834bc120bb4f85162a2ec8c6393,
         type: 3}
       propertyPath: m_Name
-      value: txtSignUp
+      value: SignUp
       objectReference: {fileID: 0}
     - target: {fileID: 7066756949034990897, guid: d2261834bc120bb4f85162a2ec8c6393,
         type: 3}
@@ -1384,6 +1389,11 @@ PrefabInstance:
       propertyPath: m_Name
       value: pnlSettings
       objectReference: {fileID: 0}
+    - target: {fileID: 1506493408618303698, guid: 232a3e0ef743f3446b0f86ad05ea2250,
+        type: 3}
+      propertyPath: m_IsActive
+      value: 0
+      objectReference: {fileID: 0}
     - target: {fileID: 1506493408618303699, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_LocalPosition.x
@@ -1492,52 +1502,52 @@ PrefabInstance:
     - target: {fileID: 3507306806344194450, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3507306806344194450, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 3507306806344194450, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 4320279282738725619, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 4320279282738725619, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 7701441360525882092, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMin.x
-      value: 0
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 7701441360525882092, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 7701441360525882092, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     - target: {fileID: 8364715378568769526, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.x
-      value: 0
+      value: 0.26
       objectReference: {fileID: 0}
     - target: {fileID: 8364715378568769526, guid: 232a3e0ef743f3446b0f86ad05ea2250,
         type: 3}
       propertyPath: m_AnchorMax.y
-      value: 0
+      value: 1
       objectReference: {fileID: 0}
     m_RemovedComponents: []
   m_SourcePrefab: {fileID: 100100000, guid: 232a3e0ef743f3446b0f86ad05ea2250, type: 3}
@@ -2091,7 +2101,7 @@ MonoBehaviour:
   password: {fileID: 586893078}
   confPassword: {fileID: 1988658135}
   errorPanel: {fileID: 1397001265}
-  SuccessPanel: {fileID: 0}
+  SuccessPanel: {fileID: 1425054081}
 --- !u!1001 &1866772627
 PrefabInstance:
   m_ObjectHideFlags: 0

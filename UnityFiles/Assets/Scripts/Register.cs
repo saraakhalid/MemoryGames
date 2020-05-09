@@ -18,11 +18,10 @@ public class Register : MonoBehaviour
     public GameObject errorPanel;
     [SerializeField]
     public GameObject SuccessPanel;
-    private string form; //holds all string variables
-    //sStart is called before the first frame update
+    private string form; //holds all string variables -- don't know what use this is 
     void Start()
     {
-        //logging in with user preferences
+        //logging in with user preferences as soon as you click play in Unity
         // if(PlayerPrefs.HasKey("USERNAME")){
         //     _Username = PlayerPrefs.GetString("USERNAME");
         //     _Password = PlayerPrefs.GetString("PASSWORD");
@@ -102,12 +101,20 @@ public class Register : MonoBehaviour
     {
         Debug.Log("Registration successful!");
         string message = "Registration successful!";
-        SuccessPanel.transform.GetChild(0).GetComponent<Text>().text = "You have successfully registered an account!";
+        SuccessPanel.transform.GetChild(0).GetComponent<Text>().text = message;
         SuccessPanel.SetActive(true);
         StartCoroutine(RemoveAfterSeconds(3, SuccessPanel));
         //save username and password in user preferences so that user will be logged in next time
         PlayerPrefs.SetString("USERNAME", _Username);
         PlayerPrefs.SetString("PASSWORD", _Password);
+
+        //update display name for use in leaderboard 
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = _Username }, OnDisplayName, OnRegisterFail);
+    }
+
+    void OnDisplayName(UpdateUserTitleDisplayNameResult result)
+    {
+        Debug.Log(result.DisplayName + " is your display name.");
     }
     private void OnRegisterFail(PlayFabError error)
     {

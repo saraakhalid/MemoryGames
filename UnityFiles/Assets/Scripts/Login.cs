@@ -45,6 +45,10 @@ public class Login : MonoBehaviour
     {
         //print("Login success!");
         string message = string.Format("Hey there, {0}!", _Username);
+        //update display name for use in leaderboard 
+        PlayFabClientAPI.UpdateUserTitleDisplayName(new UpdateUserTitleDisplayNameRequest { DisplayName = _Username }, OnDisplayName, onLoginFail);
+
+
         SuccessPanel.transform.GetChild(0).GetComponent<Text>().text = message;
         SuccessPanel.SetActive(true);
         isLoggedIn = true;
@@ -53,6 +57,11 @@ public class Login : MonoBehaviour
         if (!SuccessPanel.activeSelf && isLoggedIn)
             loadNextScene();
 
+    }
+
+    void OnDisplayName(UpdateUserTitleDisplayNameResult result)
+    {
+        Debug.Log(result.DisplayName + " is your display name.");
     }
 
     private void loadNextScene()

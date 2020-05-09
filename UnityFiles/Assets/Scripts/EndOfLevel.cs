@@ -13,8 +13,20 @@ public class EndOfLevel : MonoBehaviour
     void Start()
     {
         //stars = GameObject.FindGameObjectsWithTag("star"); //does not work
+        if (LoadLevelAfterTime.levelNo == 1)
+            endOfEasyLevel();
+        else if (LoadLevelAfterTime.levelNo == 2)
+            endOfMediumLevel();
+        else
+            endOfHardLevel();
+    }
+
+    // Update is called once per frame
+    private void endOfEasyLevel()
+    {
 
         totalScore.GetComponent<Text>().text = "Score: " + SubmitButton.Score.ToString();
+
         if (SubmitButton.Score == 0)
         {
             foreach (var s in stars)
@@ -22,21 +34,12 @@ public class EndOfLevel : MonoBehaviour
                 s.SetActive(false);
             }
         }
-        if(LoadLevelAfterTime.levelNo == 1)
-            endOfEasyLevel();
-        else if(LoadLevelAfterTime.levelNo == 2)
-            endOfMediumLevel();
-        else
-            endOfHardLevel();
-    }
 
-    // Update is called once per frame
-    private void endOfEasyLevel(){
-            if(SubmitButton.Score <= 5)
-            {
-                stars[1].SetActive(true);
-            }
-            else if (SubmitButton.Score > 5 && SubmitButton.Score <= 10)
+        else if (SubmitButton.Score <= 5 && SubmitButton.Score > 0)
+        {
+            stars[1].SetActive(true);
+        }
+        else if (SubmitButton.Score > 5 && SubmitButton.Score <= 10)
         {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
@@ -49,38 +52,61 @@ public class EndOfLevel : MonoBehaviour
         }
     }
 
-    private void endOfMediumLevel(){
-            if(SubmitInMedium.Score <= 10)
+    private void endOfMediumLevel()
+    {
+
+        totalScore.GetComponent<Text>().text = "Score: " + SubmitInMedium.Score.ToString();
+
+        if (SubmitInMedium.Score == 0)
+        {
+            foreach (var s in stars)
             {
-            stars[1].SetActive(true);
+                s.SetActive(false);
             }
-            else if(SubmitInMedium.Score > 10 && SubmitInMedium.Score <= 20)
-            {
+        }
+
+        else if (SubmitInMedium.Score <= 10 && SubmitInMedium.Score > 0)
+        {
+            stars[1].SetActive(true);
+        }
+        else if (SubmitInMedium.Score > 10 && SubmitInMedium.Score <= 20)
+        {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
-            }
-            else if(SubmitInMedium.Score > 20 && SubmitInMedium.Score <= 30)
-            {
+        }
+        else if (SubmitInMedium.Score > 20 && SubmitInMedium.Score <= 30)
+        {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
             stars[2].SetActive(true);
-            }
+        }
     }
-    private void endOfHardLevel(){
-            if(SubmitInHard.Score <= 20)
+    private void endOfHardLevel()
+    {
+
+        totalScore.GetComponent<Text>().text = "Score: " + SubmitInHard.Score.ToString();
+
+        if (SubmitInHard.Score == 0)
+        {
+            foreach (var s in stars)
             {
-            stars[1].SetActive(true);
+                s.SetActive(false);
             }
-            else if(SubmitInHard.Score > 20 && SubmitInHard.Score <= 40)
-            {
+        }
+        else if (SubmitInHard.Score <= 20 && SubmitInHard.Score > 0)
+        {
+            stars[1].SetActive(true);
+        }
+        else if (SubmitInHard.Score > 20 && SubmitInHard.Score <= 40)
+        {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
-            }
-            else if(SubmitInHard.Score > 40 && SubmitInHard.Score <= 60)
-            {
+        }
+        else if (SubmitInHard.Score > 40 && SubmitInHard.Score <= 60)
+        {
             stars[0].SetActive(true);
             stars[1].SetActive(true);
-            stars[2].SetActive(true);                
-            }
+            stars[2].SetActive(true);
+        }
     }
 }

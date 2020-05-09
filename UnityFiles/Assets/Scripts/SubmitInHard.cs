@@ -7,6 +7,8 @@ using System.Collections.Generic;
 using System; //for error catching
 using UnityEngine.EventSystems;
 using UnityEngine.SceneManagement;
+using PlayFab;
+using PlayFab.ClientModels;
 
 public class SubmitInHard : MonoBehaviour
 {
@@ -38,12 +40,11 @@ public class SubmitInHard : MonoBehaviour
     [SerializeField]
     private GameObject[] RoundComponents;
 
-    GameObject performRedirectionScript; //empty game object to act as a bridge between this script and Redirection.cs
+    //GameObject performRedirectionScript; //empty game object to act as a bridge between this script and Redirection.cs
 
-    // Start is called before the first frame update
     void Start()
     {
-        Debug.Log("Good Morning from Hard :)"); 
+        Debug.Log("Good Morning from Hard :)");
         winSound = GetComponent<AudioSource>();
 
         clickedAudios = new List<string>();
@@ -55,7 +56,7 @@ public class SubmitInHard : MonoBehaviour
         // {
         //     hearts[i].SetActive(true);
         // }
-        
+
         showResults = GameObject.FindGameObjectsWithTag("evaluation");
         foreach (var item in showResults)
         {
@@ -83,15 +84,10 @@ public class SubmitInHard : MonoBehaviour
         }
 
         int livesLeft = PlayerPrefs.GetInt("lives");
-        for(int i=0; i<livesLeft;i++)
+        for (int i = 0; i < livesLeft; i++)
         {
             hearts[i].SetActive(true);
         }
-        // while(livesLeft < 3)
-        // {
-        //     hearts[livesLeft].SetActive(false);
-        //     livesLeft++;
-        // }
     }
 
     //SET STUFF UP --------------------------
@@ -158,7 +154,7 @@ public class SubmitInHard : MonoBehaviour
                 userWins(3);
             else if (aims == 2)
                 userWins(2);
-            else if(aims == 1)
+            else if (aims == 1)
                 userWins(1);
             else
                 userLoses();
@@ -197,14 +193,16 @@ public class SubmitInHard : MonoBehaviour
         //changing score
         if (numberOfCorrectAns == 3)
             Score = Score + 20;
-        else if(numberOfCorrectAns == 2)
+        else if (numberOfCorrectAns == 2)
             Score = Score + 10;
         else
             Score = Score + 5;
 
         _score.GetComponent<Text>().text = "Score: " + Score.ToString();
         roundNumber++;
-        print("round number from userWins " +    roundNumber);
+        print("round number from userWins " + roundNumber);
+
+        SetStatistics(); //set score in playfab
     }
 
     private void userLoses()
@@ -221,7 +219,7 @@ public class SubmitInHard : MonoBehaviour
         thumbsDown.enabled = true;
         roundNumber++;
         print("round number from userLoses: " + roundNumber);
-        
+
         int count = hearts.Count();
         hearts[count - 1].SetActive(false); //the last heart is deactivated
         hearts = hearts.Take(hearts.Length - 1).ToArray(); //the array crops it out so next time the last element is a different heart
@@ -265,25 +263,51 @@ public class SubmitInHard : MonoBehaviour
         PlayerPrefs.SetInt("lives", hearts.Length);
     }
 
-    // do not think I need this for now.
-    // float delayBeforeLoading = 5;
-    // float timeElapsed = 0;
-    // int LoadLevelAfterTime(string nameOfScene)
-    // {
-    //     //Debug.Log("inside loadLEvelAfterWait");
+    #region Getting Score from Playfab for display in game
+    //called in Start() in both choice scene and test scene
+    void GetStatistics()
+    {
+        PlayFabClientAPI.GetPlayerStatistics(
+            new GetPlayerStatisticsRequest(),
+            OnGetStatistics,
+            error => Debug.LogError(error.GenerateErrorReport())
+        );
+    }
 
-    //     timeElapsed += Time.deltaTime;
+    void OnGetStatistics(GetPlayerStatisticsResult result)
+    {
+        Debug.Log("Received the following Statistics:");
+        foreach (var eachStat in result.Statistics)
+        {
+            Debug.Log("Statistic (" + eachStat.StatisticName + "): " + eachStat.Value);
+            if (eachStat.StatisticName == "Score")
+            {
+                Score = eachStat.Value;
+            }
+        }
+    }
+    #endregion
 
-    //     if (timeElapsed > delayBeforeLoading)
-    //     {
-    //         //Debug.Log("loading next scene");
-    //         //Redirection.redirectToScreen("Hard Level Start");
-    //         performRedirectionScript.SetActive(true);
-    //         return 1;
-    //     }
-    //     else
-    //     {
-    //         return 0;
-    //     }
-    // }
+    #region Setting Score inside PlayFab
+    //called after every change in score after clicking submit
+    void SetStatistics()
+    {
+        PlayFabClientAPI.UpdatePlayerStatistics(new UpdatePlayerStatisticsRequest
+        {
+            // request.Statistics is a list, so multiple StatisticUpdate objects can be defined if required.
+            Statistics = new List<StatisticUpdate> {
+        new StatisticUpdate { StatisticName = "Score", Value = Score },
+        }
+        },
+        result => { Debug.Log("User score updated on playfab"); },
+        error => { Debug.LogError(error.GenerateErrorReport()); });
+    }
+    #endregion
+
+    #region Resettting Score when user exists game 
+    //TODO: reset score to 0 after level is over .. or maybe don't and let levels be comprehensive. Think about it.
+    #endregion
 }
+
+//References: 
+//- How to Leaderboards in Playfab: https://www.youtube.com/watch?v=8rKARO5Z76g
